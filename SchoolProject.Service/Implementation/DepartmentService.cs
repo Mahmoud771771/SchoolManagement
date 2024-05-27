@@ -22,7 +22,7 @@ namespace SchoolProject.Service.Implementation
             var department = await _departmentRepository.GetTableNoTracking()
                   .Where(e => e.Id.Equals(id))
                   .Include(e => e.DepartmentSubjects).ThenInclude(x => x.Subjects)
-                  .Include(e => e.Students)
+                  // .Include(e => e.Students)
                   .Include(e => e.Instructors).FirstOrDefaultAsync();
             return department;
         }

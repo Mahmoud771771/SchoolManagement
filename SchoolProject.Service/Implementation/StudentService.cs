@@ -116,8 +116,18 @@ namespace SchoolProject.Service.Implementation
                 case StudentOrderingEnum.DepartmentName:
                     querable = querable.OrderBy(e => e.Department.NameAr);
                     break;
+                default:
+                    querable = querable.OrderBy(e => e.Id);
+                    break;
+
             }
             return querable;
+        }
+
+        public IQueryable<Student> GetStudentsByDepartmentIDQuerable(int DID)
+        {
+            return _studentRepository.GetTableNoTracking().Where(e => e.DepartmentId.Equals(DID)).AsQueryable();
+
         }
     }
 }

@@ -52,8 +52,25 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.SupportedUICultures = supportedCultures;
 
 });
+#endregion
+
+#region allow cors
+
+var CORS = "_cors";
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: CORS,
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin();
+                          policy.AllowAnyMethod();
+                          policy.AllowAnyHeader();
+
+
+                      });
+});
 #endregion
 
 var app = builder.Build();
@@ -71,6 +88,7 @@ app.UseRequestLocalization(options.Value);
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
 app.UseHttpsRedirection();
+app.UseCors(CORS);
 
 app.UseAuthorization();
 

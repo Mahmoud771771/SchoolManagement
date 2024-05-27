@@ -5,15 +5,13 @@ using SchoolProject.Data.AppMetaData;
 
 namespace SchoolProject.Api.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class DepartmentsController : AppControllerBase
     {
         [HttpGet(Router.DepartmentRouting.GetById)]
-        public async Task<IActionResult> GetStudentById([FromRoute] int id)
+        public async Task<IActionResult> GetStudentById([FromQuery] GetDepartmentByIdQuery query)
         {
-            var response = await Mediator.Send(new GetDepartmentByIdQuery(id));
-            return NewResult(response);
+            return NewResult(await Mediator.Send(query));
 
         }
     }
